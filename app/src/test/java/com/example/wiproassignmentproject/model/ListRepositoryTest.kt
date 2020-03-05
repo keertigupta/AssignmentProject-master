@@ -2,16 +2,16 @@ package com.example.wiproassignmentproject.model
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import com.example.wiproassignmentproject.service.APIService
+import com.example.wiproassignmentproject.service.RetrofitInstance
 import com.nhaarman.mockito_kotlin.doReturn
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
-
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -23,9 +23,12 @@ class ListRepositoryTest {
     @Rule
     @JvmField var mInstantTaskExecutor =  InstantTaskExecutorRule()//InstantTaskExecutorRule()
 
+    @Mock
+    var service: APIService? = null
+
     @Before
     fun setUp() {
-      //  MockitoAnnotations.initMocks(this)
+       MockitoAnnotations.initMocks(this)
     }
 
     @After
@@ -33,13 +36,21 @@ class ListRepositoryTest {
         //repository = null
     }
 
+    @Before
+    fun createService() {
+
+       /* service = Retrofit.Builder()
+            .baseUrl(RetrofitInstance.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(APIService::class.java)*/
+
+    }
     @Test
     fun getMutableLiveData() {
-        val m = MutableLiveData<ResponseData>()
-        m.value = ResponseData("", listOf())
-        //Mockito.`when`(repository.getMutableLiveData()).thenReturn(repository.getMutableLiveData())
-        doReturn (repository.getMutableLiveData()).`when`(repository.getMutableLiveData())
 
-            System.out.println(repository.getMutableLiveData())
+        val response = service?.getList()?.execute()
+        Assert.assertEquals(response!!.code().toLong(), 200)
+
     }
 }

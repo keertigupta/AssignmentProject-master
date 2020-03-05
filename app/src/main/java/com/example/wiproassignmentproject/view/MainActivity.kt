@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var mViewModelFactory: MyViewModelfactory
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val  daggerMyAppComponent = DaggerMyAppComponent.builder().build()
         daggerMyAppComponent.inject(this)
@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity,"Network Not Available.",Toast.LENGTH_LONG).show()
         }
     }
+
+
     fun showUi(list:List<Rows>,_title:String){
         mbinding.myToolbar.title = _title
             myadapter = DemoListAdapter(this,list as ArrayList<Rows>)

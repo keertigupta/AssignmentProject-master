@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
     private var retrofit: Retrofit? = null
-    private const val BASE_URL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/"
+    const val BASE_URL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/"
 
     val service: APIService
         get() {
